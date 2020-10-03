@@ -12,9 +12,9 @@ minV = 0;
 
 
 DataCheck = [Database.ControlDataset(:); Database.SampleDataset(:)]; % create 1 x n cell array
- a = cellfun(@median, DataCheck, 'UniformOutput', false); % get median values of all columns
- b = cellfun(@min, a, 'UniformOutput', false); % find minimum median value to normalise by
- minV = min(cell2mat(b));
+a = cellfun(@median, DataCheck, 'UniformOutput', false); % get median values of all columns
+b = cellfun(@min, a, 'UniformOutput', false); % find minimum median value to normalise by
+minV = min(cell2mat(b));
 
 for iy = 1:nRow         % bead index
     for ix = 1:nCol       % filename index
@@ -27,51 +27,44 @@ for iy = 1:nRow         % bead index
         switch Norm_Method
             
             case 'Background Subtraction'
-                [CtrlData, EVData] = ScalingType(Scaling, CtrlData, EVData);
                 Database.Norm.Cell{iy,ix} = prctile(EVData,50,1) - prctile(CtrlData,50,1);
+                Database.Norm.Cell{iy,ix} = ScalingType(Scaling, Database.Norm.Cell{iy,ix});
                 
             case 'Stain Index 1' % standard stain index
-                [CtrlData, EVData] = ScalingType(Scaling, CtrlData, EVData);
                 SD_EV_Bead = prctile(EVData,5,1) + prctile(EVData,50,1);             % interquartile range of EV capture bead
                 SD_Ctrl_Bead = prctile(CtrlData,95,1) - prctile(CtrlData,50,1);  % interquartile range of control capture bead
                 
                 Database.Norm.Cell{iy,ix} = ((prctile(EVData,50,1)-prctile(CtrlData,50,1))) ./ ((SD_EV_Bead + SD_Ctrl_Bead));
+                Database.Norm.Cell{iy,ix} = ScalingType(Scaling, Database.Norm.Cell{iy,ix});
                 
             case 'Stain Index 2' % Bigos method
-                [CtrlData, EVData] = ScalingType(Scaling, CtrlData, EVData);
                 Database.Norm.Cell{iy,ix} = ((prctile(EVData,50,1)-prctile(CtrlData,50,1))) ./ prctile(CtrlData,95,1) ;
+                Database.Norm.Cell{iy,ix} = ScalingType(Scaling, Database.Norm.Cell{iy,ix});
                 
             case 'Fold Change'
-                switch Scaling % fold change needs scaling after calculation to avoid logging log values
-                    case 'Linear'
-                        Database.Norm.Cell{iy,ix} = prctile(EVData,50,1) ./ prctile(CtrlData,50,1);
-                    case 'Log10'
-                        Database.Norm.Cell{iy,ix} = log10(prctile(EVData,50,1) ./ prctile(CtrlData,50,1));
-                    case 'Log2'
-                        Database.Norm.Cell{iy,ix} = log2(prctile(EVData,50,1) ./ prctile(CtrlData,50,1));
-                    case 'Log'
-                        Database.Norm.Cell{iy,ix} = log(prctile(EVData,50,1) ./ prctile(CtrlData,50,1));
-                end
+                Database.Norm.Cell{iy,ix} = prctile(EVData,50,1) ./ prctile(CtrlData,50,1);
+                Database.Norm.Cell{iy,ix} = ScalingType(Scaling, Database.Norm.Cell{iy,ix});
+                
         end
-        
         Database.Recovery.EV{iy,ix} = size(Database.SampleDataset{iy,ix},1) ;          % bead recovery for samples
         
     end
+    
 end
-
 end
-
-function [CtrlData, EVData] = ScalingType(Scaling, CtrlData, EVData)
+function [NormData] = ScalingType(Scaling, NormData)
 switch Scaling
     case 'Log10'
-        CtrlData = log10(CtrlData);
-        EVData = log10(EVData);
+        NormData(NormData<0) = NaN;
+        NormData = log10(NormData);
+        
     case 'Log2'
-        CtrlData = log2(CtrlData);
-        EVData = log2(EVData);
+        NormData(NormData<0) = NaN;
+        
+        NormData = log2(NormData);
     case 'Log'
-        CtrlData = log(CtrlData);
-        EVData = log(EVData);
+        NormData(NormData<0) = NaN;
+        NormData = log(NormData);
     case 'Linear'
 end
 

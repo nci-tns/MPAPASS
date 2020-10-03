@@ -193,6 +193,9 @@ function [p, Data] = InputParamCheck(args, Data)
 
 %% check if data is cell array or numeric array
 if iscell(Data) == 1
+    if iscell(Data{1})
+    Data = Data{1};
+    end
 elseif isnumeric(Data) == 1
     DataX = Data;
     Data = [];

@@ -50,10 +50,18 @@ switch SampleOrderDropDown.Value
             case 'Sample Clustering' % stop grouping and clustering simultaneously
             otherwise
                 [~, ~, i1] = unique(Dataset.SelectedInfo.(GroupSamplesbyDropDown.Items{GroupSamplesbyDropDown.Value}), 'stable');
-                [~, i2] = sort(i1);
+                [SortedGroups, i2] = sort(i1);
+                tempData = PlotData(:,i1);
+                tempLabels = SampleLabel(i2);
                 
-                PlotData = PlotData(:,i2);
-                SampleLabel = SampleLabel(i2);
+                PlotData = [];
+                SampleLabel = [];
+                
+                GroupIDs = unique(i1);
+                for i = 1:numel(GroupIDs)
+                PlotData{i} = tempData(:,i2==GroupIDs(i));
+                SampleLabel{i} = unique(tempLabels(i2==GroupIDs(i)));
+                end
         end
 end
 
