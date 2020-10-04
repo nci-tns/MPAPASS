@@ -51,8 +51,8 @@ col = [col repmat(BPInfo.FaceAlpha,size(col,1),1)];
 Space = 0.4/1+numel(i1);
 Gap = BPInfo.Spacing/2;
 
-fig = figure;
-ax = axes;
+fig = figure('Tag','boxplot');
+ax = nexttile;
 maxY = 0;
 
 for i = 1:Select

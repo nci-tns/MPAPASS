@@ -11,14 +11,11 @@ MarkerLabel = strrep(MarkerLabel,'_',' ');
 
 h = pcolor(PlotData);
 set(gca,'YTick', Y, 'YTickLabel',SampleLabel,...
-    'XTick', X,'XTickLabel',MarkerLabel,...
-    'FontSize',getpref('MPAPASS','GlobalFigure_AxesFontSize',...
-    'FontWeight',getpref('MPAPASS','GlobalFigure_AxesFontBold',...
-    ))
+    'XTick', X,'XTickLabel',MarkerLabel)
 
 switch GridLines
     case 'off'
-set(h,'EdgeColor', 'none')
+        set(h,'EdgeColor', 'none')
     otherwise
 end
 xtickangle(90)

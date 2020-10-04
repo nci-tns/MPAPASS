@@ -5,16 +5,19 @@ This software is designed to allow the analysis of extracellular vesicle multipl
 ## Getting Started
 Protocols for using the software can be found at https://nano.ccr.cancer.gov/protocols
 
+## Prerequisites
 
-### Prerequisites
+A fully compiled version of the software with no dependencies can be found at: https://nano.ccr.cancer.gov/MPAPASS
 
-MATLAB v2020a
+Source code dependencies:
+* MATLAB v2020b
+* Statistics and Machine Learning Toolbox
+* [cmocean toolbox](https://github.com/matplotlib/cmocean)
 
+## Coding Contributions
 
-## Authors
-
-* **Joshua A. Welsh** - *Initial work* - [joadwe](https://github.com/joadwe)
-
+* **Joshua A. Welsh** - [joadwe](https://github.com/joadwe), [website](http://joshuawelsh.co.uk)
+* **Sean Cook** - [SeanCook13](https://github.com/SeanCook13)
 
 ## License
 
