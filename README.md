@@ -7,7 +7,7 @@ Protocols for using the software can be found at https://nano.ccr.cancer.gov/pro
 
 ## Prerequisites
 
-A fully compiled version of the software with no dependencies can be found at: https://nano.ccr.cancer.gov/MPAPASS
+A fully compiled version of the software with no dependencies can be found at: https://nano.ccr.cancer.gov/mpapass
 
 Source code dependencies:
 * MATLAB v2020b
