@@ -9,6 +9,8 @@ Protocols for using the software can be found at https://nano.ccr.cancer.gov/pro
 
 A fully compiled version of the software with no dependencies can be found at: https://nano.ccr.cancer.gov/mpapass
 
+MATLAB users can also install through FileExchange <br> [![View MPAPASS - EV Multiplex Software on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/80936-mpapass-ev-multiplex-software)
+
 Source code dependencies:
 * MATLAB v2020b
 * Statistics and Machine Learning Toolbox
