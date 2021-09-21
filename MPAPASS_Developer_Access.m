@@ -3,7 +3,7 @@ function [app] = MPAPASS_Developer_Access(app)
 Selection = getpref('MPAPASS','DeveloperAcess');
 
 app.TestMenu.Visible = Selection;
-app.PreferencesMenu.Visible = Selection;
+app.PreferencesMenu.Visible = 'on';
 app.MergeMenu.Visible = Selection;
 
 app.ThresholdDropDown.Visible = Selection;

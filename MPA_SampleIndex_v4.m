@@ -25,7 +25,7 @@ TableHeaders = contains(Database.Sample.Properties.VariableNames, ListboxHeaders
 SampleTable = Database.Sample(:, TableHeaders); % shrink table to selectable GUI variables
 
 SampleInd = logical(ones(size(SampleTable,1),1));
-for i = 1:size(SampleTable,2)
+for i = 1:size(SampleTable,2)-2
     
     SampleTable.(ListboxHeaders{i}) = categorical(SampleTable.(ListboxHeaders{i}));
     

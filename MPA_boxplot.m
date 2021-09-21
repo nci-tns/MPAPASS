@@ -46,7 +46,8 @@ switch BPInfo.Ranking
         ord2 = 1:size(PlotData,1);
 end
 
-col = lines(numel(i1));
+Colors = repmat(BPInfo.ColorOrder{1}, ceil(numel(i1)/7),1);
+col = Colors(1:numel(i1),:);
 col = [col repmat(BPInfo.FaceAlpha,size(col,1),1)];
 Space = 0.4/1+numel(i1);
 Gap = BPInfo.Spacing/2;
@@ -84,7 +85,7 @@ for i = 1:Select
                         line([FactorGap(ii) FactorGap(ii+1)], [Y{ii}(ord2(i),5) Y{ii}(ord2(i),5)], 'LineWidth',1, 'Color','k')
                         line([center center], [Y{ii}(ord2(i),1) Y{ii}(ord2(i),2)], 'LineWidth',1, 'Color','k')
                         line([center center], [Y{ii}(ord2(i),5) Y{ii}(ord2(i),4)], 'LineWidth',1, 'Color','k')
-
+                        
                     otherwise
                 end
             case 'Scatter'
@@ -99,8 +100,8 @@ for i = 1:Select
                 yData = sort(Data(i,:));
                 scatter(xData, yData, 20, 'filled', 'MarkerFaceColor',col(ii,1:3),'MarkerEdgeColor','k')
                 hold on
-                                line([FactorGap(ii) FactorGap(ii+1)], [Y{ii}(ord2(i),3) Y{ii}(ord2(i),3)], 'LineWidth',2, 'Color','k')
-
+                line([FactorGap(ii) FactorGap(ii+1)], [Y{ii}(ord2(i),3) Y{ii}(ord2(i),3)], 'LineWidth',2, 'Color','k')
+                
             case 'Box + Scatter'
                 
                 R_B = FactorGap(ii); % bottom
@@ -115,7 +116,7 @@ for i = 1:Select
                 rectangle('Position',[R_B R_L R_R R_T], 'FaceColor','none', 'EdgeColor','k','LineWidth',0.75);
                 hold on
                 line([FactorGap(ii) FactorGap(ii+1)], [Y{ii}(ord2(i),3) Y{ii}(ord2(i),3)], 'LineWidth',1, 'Color','k')
-
+                
                 center = (R_B+(R_R/2));
                 
                 xData = normrnd(center,0.025,[1 size(Data,2)]);
@@ -123,9 +124,7 @@ for i = 1:Select
                 scatter(xData, yData, 40, 'filled', 'MarkerFaceColor',col(ii,1:3),'MarkerEdgeColor','k','LineWidth',0.1,'MarkerEdgeAlpha',0.5)
                 hold on
                 
-                %                 xdata = repmat(FactorGap(ii)+0.5, size(RawGroup{ii}, ))
-                
-                %                 scatter()
+              
         end
         
     end
@@ -162,7 +161,6 @@ end
 for ii = 1:numel(i1)
     hline(ii) = patch([NaN,NaN NaN NaN],[NaN NaN NaN NaN],col(ii,:),'LineWidth',1,'LineStyle','-');
     hline(ii).FaceColor = col(ii,1:3);
-    hline(ii).FaceAlpha = 0.5;
 end
 
 switch BPInfo.Orientation
